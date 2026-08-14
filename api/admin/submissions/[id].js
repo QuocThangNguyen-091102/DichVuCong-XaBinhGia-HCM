@@ -96,6 +96,16 @@ module.exports = async (req, res) => {
         return;
       }
 
+      if (!/^[0-9]{12}$/.test(clean(body.so_cccd) || '')) {
+        res.status(400).json({ error: 'Số CCCD phải gồm đúng 12 chữ số.' });
+        return;
+      }
+
+      if (!/^[0-9]{10}$/.test(clean(body.dien_thoai) || '')) {
+        res.status(400).json({ error: 'Số điện thoại phải gồm đúng 10 chữ số.' });
+        return;
+      }
+
       const update = {};
       for (const field of EDITABLE_FIELDS) {
         if (field in body) {

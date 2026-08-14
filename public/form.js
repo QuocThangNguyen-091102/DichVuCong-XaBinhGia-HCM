@@ -25,12 +25,21 @@
   }
 
   hinhThucRadios.forEach((radio) => radio.addEventListener('change', toggleOtherField));
+
   const cccdInput = document.getElementById('so_cccd');
   if (cccdInput) {
     cccdInput.addEventListener('input', () => {
-      ccdInput.value = cccdInput.value.replace(/[^0-9]/g, '').slice(0, 12);
-  });
+      cccdInput.value = cccdInput.value.replace(/[^0-9]/g, '').slice(0, 12);
+    });
   }
+
+  const phoneInput = document.getElementById('dien_thoai');
+  if (phoneInput) {
+    phoneInput.addEventListener('input', () => {
+      phoneInput.value = phoneInput.value.replace(/[^0-9]/g, '').slice(0, 10);
+    });
+  }
+
   function showStatus(kind, message) {
     statusEl.textContent = message;
     statusEl.className = `status-message show ${kind}`;
