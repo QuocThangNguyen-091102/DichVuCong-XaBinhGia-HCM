@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>Phiếu thông tin khám sức khỏe năm 2026</title>
+<link rel="stylesheet" href="/styles.css?v=2" />
+</head>
+<body>
+
+<div id="motif-top-right" class="motif motif-form"></div>
+<div id="motif-bottom-left" class="motif motif-form" style="left:-150px;right:auto;top:auto;bottom:-120px;"></div>
+<div id="bird-flock-form" class="bird-flock bird-flock-form"></div>
+
+<div class="page">
+  <div class="form-page">
+  <div class="sheet">
+    <header class="form-hero">
+      <a class="back-home" href="/">← Trang chủ</a>
+      <div class="form-emblem"><img src="/assets/quoc-huy.png" alt="Quốc huy Việt Nam" style="width:100%;height:100%;object-fit:contain;border-radius:50%;background:#fff;padding:2px" /></div>
+      <p class="eyebrow" id="org-name">Uỷ ban Nhân dân xã Bình Giã</p>
+      <h1 class="title">Phiếu thông tin khám sức khỏe năm 2026</h1>
+      <p class="subtitle">PHIẾU GHI NHẬN TT KSK của UBND xã Bình Giã.</p>
+      <p class="commitment">Cam kết: Thông tin của Quý vị được bảo mật tuyệt đối và chỉ sử dụng cho mục đích lập hồ sơ khám sức khỏe năm 2026.</p>
+    </header>
+
+    <form id="ksk-form" novalidate>
+
+      <fieldset class="section">
+        <legend>I. Thông tin hành chính</legend>
+        <div class="form-grid">
+
+          <div class="field full">
+            <label for="ho_ten">Họ và tên (viết chữ in hoa)<span class="required">*</span></label>
+            <input type="text" id="ho_ten" name="ho_ten" autocomplete="name" required style="text-transform:uppercase" />
+          </div>
+
+          <div class="field full">
+            <label>Giới tính<span class="required">*</span></label>
+            <div class="choice-group" role="radiogroup" aria-label="Giới tính">
+              <div class="choice">
+                <input type="radio" id="gt-nam" name="gioi_tinh" value="Nam" required />
+                <label for="gt-nam">Nam</label>
+              </div>
+              <div class="choice">
+                <input type="radio" id="gt-nu" name="gioi_tinh" value="Nữ" />
+                <label for="gt-nu">Nữ</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="ngay_sinh">Ngày tháng năm sinh<span class="required">*</span></label>
+            <input type="date" id="ngay_sinh" name="ngay_sinh" required />
+          </div>
+
+          <div class="field">
+            <label for="dan_toc">Dân tộc</label>
+            <input type="text" id="dan_toc" name="dan_toc" placeholder="Ví dụ: Kinh" />
+          </div>
+
+          <div class="field">
+            <label for="nhom_mau">Nhóm máu (nếu có)</label>
+            <select id="nhom_mau" name="nhom_mau">
+              <option value="">-- Chọn --</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="AB">AB</option>
+              <option value="O">O</option>
+              <option value="Không rõ">Không rõ</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="so_cccd">Số CCCD/Mã số định danh<span class="required">*</span></label>
+            <input type="text" id="so_cccd" name="so_cccd" inputmode="numeric" pattern="[0-9]{9,12}" title="Nhập từ 9 đến 12 chữ số" required />
+          </div>
+
+          <div class="field">
+            <label for="so_bhyt">Số thẻ BHYT</label>
+            <input type="text" id="so_bhyt" name="so_bhyt" />
+          </div>
+
+          <div class="field full">
+            <label for="khu_vuc">Khu vực (Thôn/Tổ)<span class="required">*</span></label>
+            <select id="khu_vuc" name="khu_vuc" required>
+              <option value="">Đang tải danh sách khu vực…</option>
+            </select>
+          </div>
+
+          <div class="field full">
+            <label for="noi_o_hien_tai">Nơi ở hiện tại (địa chỉ cụ thể)<span class="required">*</span></label>
+            <input type="text" id="noi_o_hien_tai" name="noi_o_hien_tai" required />
+          </div>
+
+          <div class="field">
+            <label for="xa_phuong_noi_o">Xã, phường (nơi ở)</label>
+            <input type="text" id="xa_phuong_noi_o" name="xa_phuong_noi_o" />
+          </div>
+
+          <div class="field">
+            <label for="nghe_nghiep">Nghề nghiệp</label>
+            <input type="text" id="nghe_nghiep" name="nghe_nghiep" />
+          </div>
+
+          <div class="field">
+            <label for="noi_lam_viec_hoc_tap">Nơi làm việc, học tập</label>
+            <input type="text" id="noi_lam_viec_hoc_tap" name="noi_lam_viec_hoc_tap" />
+          </div>
+
+          <div class="field">
+            <label for="xa_phuong_noi_lam_viec">Xã, phường (nơi làm việc/học tập)</label>
+            <input type="text" id="xa_phuong_noi_lam_viec" name="xa_phuong_noi_lam_viec" />
+          </div>
+
+          <div class="field full">
+            <label for="ten_me_nguoi_giam_ho">Họ tên mẹ hoặc người giám hộ <span class="hint">(đối với trẻ từ 16 tuổi trở xuống)</span></label>
+            <input type="text" id="ten_me_nguoi_giam_ho" name="ten_me_nguoi_giam_ho" />
+          </div>
+
+          <div class="field">
+            <label for="dien_thoai">Điện thoại di động<span class="required">*</span></label>
+            <input type="tel" id="dien_thoai" name="dien_thoai" inputmode="numeric" pattern="[0-9]{9,11}" required />
+          </div>
+
+          <div class="field full">
+            <label>Đối tượng<span class="required">*</span></label>
+            <div class="choice-group" role="radiogroup" aria-label="Đối tượng">
+              <div class="choice">
+                <input type="radio" id="dt-1" name="doi_tuong" value="Trẻ đi học" required />
+                <label for="dt-1">Trẻ đi học</label>
+              </div>
+              <div class="choice">
+                <input type="radio" id="dt-2" name="doi_tuong" value="Trẻ không đi học" />
+                <label for="dt-2">Trẻ không đi học</label>
+              </div>
+              <div class="choice">
+                <input type="radio" id="dt-3" name="doi_tuong" value="Sinh viên, học viên" />
+                <label for="dt-3">Sinh viên, học viên</label>
+              </div>
+              <div class="choice">
+                <input type="radio" id="dt-4" name="doi_tuong" value="Người lao động chính thức" />
+                <label for="dt-4">Người lao động chính thức (theo Luật An toàn, Vệ sinh lao động)</label>
+              </div>
+              <div class="choice">
+                <input type="radio" id="dt-5" name="doi_tuong" value="Người lao động phi chính thức" />
+                <label for="dt-5">Người lao động phi chính thức</label>
+              </div>
+              <div class="choice">
+                <input type="radio" id="dt-6" name="doi_tuong" value="Người cao tuổi" />
+                <label for="dt-6">Người cao tuổi</label>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </fieldset>
+
+      <fieldset class="section">
+        <legend>II. Thông tin về khám sức khỏe hoặc khám sàng lọc</legend>
+        <div class="form-grid">
+
+          <div class="field full">
+            <label>Hình thức khám<span class="required">*</span></label>
+            <div class="choice-group" role="radiogroup" aria-label="Hình thức khám">
+              <div class="choice">
+                <input type="radio" id="ht-1" name="hinh_thuc_kham" value="Khám sức khỏe tổng quát" required />
+                <label for="ht-1">Khám sức khỏe tổng quát</label>
+              </div>
+              <div class="choice">
+                <input type="radio" id="ht-2" name="hinh_thuc_kham" value="Khám sàng lọc - Ung thư cổ tử cung" />
+                <label for="ht-2">Khám sàng lọc - Ung thư cổ tử cung</label>
+              </div>
+              <div class="choice">
+                <input type="radio" id="ht-3" name="hinh_thuc_kham" value="Khám sàng lọc - Ung thư vú" />
+                <label for="ht-3">Khám sàng lọc - Ung thư vú</label>
+              </div>
+              <div class="choice">
+                <input type="radio" id="ht-4" name="hinh_thuc_kham" value="Khám sàng lọc - Ung thư gan" />
+                <label for="ht-4">Khám sàng lọc - Ung thư gan</label>
+              </div>
+              <div class="choice">
+                <input type="radio" id="ht-5" name="hinh_thuc_kham" value="Khám sàng lọc - Ung thư đại trực tràng" />
+                <label for="ht-5">Khám sàng lọc - Ung thư đại trực tràng</label>
+              </div>
+              <div class="choice">
+                <input type="radio" id="ht-6" name="hinh_thuc_kham" value="Khám sàng lọc - Ung thư tiền liệt tuyến" />
+                <label for="ht-6">Khám sàng lọc - Ung thư tiền liệt tuyến</label>
+              </div>
+              <div class="choice">
+                <input type="radio" id="ht-7" name="hinh_thuc_kham" value="Khác" />
+                <label for="ht-7">Khác, ghi rõ:</label>
+              </div>
+            </div>
+            <input type="text" id="hinh_thuc_kham_khac" name="hinh_thuc_kham_khac" class="inline-other" placeholder="Ghi rõ hình thức khám khác" hidden />
+          </div>
+
+          <div class="field">
+            <label for="ngay_kham">Ngày khám<span class="required">*</span></label>
+            <input type="date" id="ngay_kham" name="ngay_kham" required />
+          </div>
+
+          <div class="field">
+            <label for="noi_kham">Nơi khám<span class="required">*</span></label>
+            <input type="text" id="noi_kham" name="noi_kham" required />
+          </div>
+
+          <div class="field full">
+            <label for="ket_qua_kham">Kết quả khám <span class="hint">(ghi theo kết luận của phiếu khám sức khỏe/phiếu khám sàng lọc nếu có)</span></label>
+            <textarea id="ket_qua_kham" name="ket_qua_kham"></textarea>
+          </div>
+
+          <div class="field full">
+            <label for="anh_dinh_kem">File đính kèm <span class="hint">(ảnh chụp phiếu khám/kết quả nếu có)</span></label>
+            <input type="file" id="anh_dinh_kem" name="anh_dinh_kem" accept="image/*" />
+            <p id="anh-dinh-kem-note" class="hint file-hint">Chấp nhận ảnh JPG/PNG, dung lượng tối đa 3MB.</p>
+          </div>
+
+        </div>
+      </fieldset>
+
+      <div class="submit-row">
+        <button type="submit" class="submit" id="submit-btn">Gửi thông tin</button>
+        <p class="form-note">Thông tin gửi được ghi nhận phục vụ công tác y tế của địa phương.</p>
+        <div class="status-message" id="status-message" role="status" aria-live="polite"></div>
+      </div>
+
+    </form>
+  </div>
+  </div>
+
+  <footer class="page-footer">© 2026 <span id="org-name-footer">Uỷ ban Nhân dân xã Bình Giã</span></footer>
+</div>
+
+<script src="/trong-dong.js"></script>
+<script src="/form.js"></script>
+</body>
+</html>

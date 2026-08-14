@@ -1,0 +1,9 @@
+{
+  "name": "ksk-form",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Phieu thu thap thong tin kham suc khoe truc tuyen, luu du lieu qua Supabase, trien khai tren Vercel.",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.4"
+  }
+}

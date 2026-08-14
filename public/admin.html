@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Quản trị · Dữ liệu khám sức khỏe</title>
+<link rel="stylesheet" href="/admin.css" />
+</head>
+<body>
+
+<div class="admin-page">
+
+  <section id="login-view" class="login-card" hidden>
+    <h1>Đăng nhập quản trị</h1>
+    <p class="muted">Nhập mật khẩu quản trị để xem dữ liệu đã thu thập.</p>
+    <form id="login-form">
+      <label for="password">Mật khẩu</label>
+      <input type="password" id="password" name="password" autocomplete="current-password" required />
+      <button type="submit">Đăng nhập</button>
+      <p id="login-error" class="error-text" hidden></p>
+    </form>
+  </section>
+
+  <section id="dashboard-view" hidden>
+    <header class="dash-header">
+      <div>
+        <h1>Dữ liệu khám sức khỏe</h1>
+        <p class="muted" id="summary-line">Đang tải…</p>
+      </div>
+      <div class="dash-actions">
+        <button id="export-btn" class="secondary">Xuất CSV</button>
+        <button id="logout-btn" class="secondary">Đăng xuất</button>
+      </div>
+    </header>
+
+    <div id="area-chips" class="area-chips"></div>
+
+    <div class="toolbar">
+      <input type="search" id="search-input" placeholder="Tìm theo họ tên, số điện thoại, CCCD…" />
+      <label class="mask-toggle">
+        <input type="checkbox" id="mask-toggle" checked />
+        Ẩn số CCCD
+      </label>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Ngày gửi</th>
+            <th>Họ và tên</th>
+            <th>Giới tính</th>
+            <th>Ngày sinh</th>
+            <th>Khu vực</th>
+            <th>Đối tượng</th>
+            <th>Số CCCD</th>
+            <th>Điện thoại</th>
+            <th>Hình thức khám</th>
+            <th>Ngày khám</th>
+            <th>Nơi khám</th>
+            <th>Đính kèm</th>
+            <th>Thao tác</th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+      <p id="empty-state" class="muted" hidden>Không tìm thấy bản ghi phù hợp.</p>
+    </div>
+  </section>
+
+  <div id="edit-overlay" class="modal-overlay" hidden>
+    <div class="modal-card">
+      <div class="modal-head">
+        <h2>Sửa thông tin</h2>
+        <button type="button" id="edit-close-btn" class="icon-btn" aria-label="Đóng">✕</button>
+      </div>
+
+      <form id="edit-form">
+        <input type="hidden" id="edit-id" />
+
+        <div class="modal-grid">
+          <div class="field full">
+            <label for="edit_ho_ten">Họ và tên<span class="required">*</span></label>
+            <input type="text" id="edit_ho_ten" required style="text-transform:uppercase" />
+          </div>
+
+          <div class="field">
+            <label for="edit_gioi_tinh">Giới tính<span class="required">*</span></label>
+            <select id="edit_gioi_tinh" required>
+              <option value="Nam">Nam</option>
+              <option value="Nữ">Nữ</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="edit_ngay_sinh">Ngày sinh<span class="required">*</span></label>
+            <input type="date" id="edit_ngay_sinh" required />
+          </div>
+
+          <div class="field">
+            <label for="edit_dan_toc">Dân tộc</label>
+            <input type="text" id="edit_dan_toc" />
+          </div>
+
+          <div class="field">
+            <label for="edit_nhom_mau">Nhóm máu</label>
+            <select id="edit_nhom_mau">
+              <option value="">-- Chọn --</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="AB">AB</option>
+              <option value="O">O</option>
+              <option value="Không rõ">Không rõ</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="edit_so_cccd">Số CCCD<span class="required">*</span></label>
+            <input type="text" id="edit_so_cccd" required />
+          </div>
+
+          <div class="field">
+            <label for="edit_so_bhyt">Số thẻ BHYT</label>
+            <input type="text" id="edit_so_bhyt" />
+          </div>
+
+          <div class="field full">
+            <label for="edit_khu_vuc">Khu vực (Thôn/Tổ)<span class="required">*</span></label>
+            <select id="edit_khu_vuc" required></select>
+          </div>
+
+          <div class="field full">
+            <label for="edit_noi_o_hien_tai">Nơi ở hiện tại<span class="required">*</span></label>
+            <input type="text" id="edit_noi_o_hien_tai" required />
+          </div>
+
+          <div class="field">
+            <label for="edit_xa_phuong_noi_o">Xã, phường (nơi ở)</label>
+            <input type="text" id="edit_xa_phuong_noi_o" />
+          </div>
+
+          <div class="field">
+            <label for="edit_nghe_nghiep">Nghề nghiệp</label>
+            <input type="text" id="edit_nghe_nghiep" />
+          </div>
+
+          <div class="field">
+            <label for="edit_noi_lam_viec_hoc_tap">Nơi làm việc, học tập</label>
+            <input type="text" id="edit_noi_lam_viec_hoc_tap" />
+          </div>
+
+          <div class="field">
+            <label for="edit_xa_phuong_noi_lam_viec">Xã, phường (nơi làm việc/học tập)</label>
+            <input type="text" id="edit_xa_phuong_noi_lam_viec" />
+          </div>
+
+          <div class="field full">
+            <label for="edit_ten_me_nguoi_giam_ho">Họ tên mẹ/người giám hộ</label>
+            <input type="text" id="edit_ten_me_nguoi_giam_ho" />
+          </div>
+
+          <div class="field">
+            <label for="edit_dien_thoai">Điện thoại<span class="required">*</span></label>
+            <input type="tel" id="edit_dien_thoai" required />
+          </div>
+
+          <div class="field full">
+            <label for="edit_doi_tuong">Đối tượng<span class="required">*</span></label>
+            <select id="edit_doi_tuong" required>
+              <option value="Trẻ đi học">Trẻ đi học</option>
+              <option value="Trẻ không đi học">Trẻ không đi học</option>
+              <option value="Sinh viên, học viên">Sinh viên, học viên</option>
+              <option value="Người lao động chính thức">Người lao động chính thức</option>
+              <option value="Người lao động phi chính thức">Người lao động phi chính thức</option>
+              <option value="Người cao tuổi">Người cao tuổi</option>
+            </select>
+          </div>
+
+          <div class="field full">
+            <label for="edit_hinh_thuc_kham">Hình thức khám<span class="required">*</span></label>
+            <select id="edit_hinh_thuc_kham" required>
+              <option value="Khám sức khỏe tổng quát">Khám sức khỏe tổng quát</option>
+              <option value="Khám sàng lọc - Ung thư cổ tử cung">Khám sàng lọc - Ung thư cổ tử cung</option>
+              <option value="Khám sàng lọc - Ung thư vú">Khám sàng lọc - Ung thư vú</option>
+              <option value="Khám sàng lọc - Ung thư gan">Khám sàng lọc - Ung thư gan</option>
+              <option value="Khám sàng lọc - Ung thư đại trực tràng">Khám sàng lọc - Ung thư đại trực tràng</option>
+              <option value="Khám sàng lọc - Ung thư tiền liệt tuyến">Khám sàng lọc - Ung thư tiền liệt tuyến</option>
+              <option value="Khác">Khác</option>
+            </select>
+          </div>
+
+          <div class="field full">
+            <label for="edit_hinh_thuc_kham_khac">Ghi rõ hình thức khám khác (nếu chọn "Khác")</label>
+            <input type="text" id="edit_hinh_thuc_kham_khac" />
+          </div>
+
+          <div class="field">
+            <label for="edit_ngay_kham">Ngày khám<span class="required">*</span></label>
+            <input type="date" id="edit_ngay_kham" required />
+          </div>
+
+          <div class="field">
+            <label for="edit_noi_kham">Nơi khám<span class="required">*</span></label>
+            <input type="text" id="edit_noi_kham" required />
+          </div>
+
+          <div class="field full">
+            <label for="edit_ket_qua_kham">Kết quả khám</label>
+            <textarea id="edit_ket_qua_kham"></textarea>
+          </div>
+        </div>
+
+        <p id="edit-error" class="error-text" hidden></p>
+
+        <div class="modal-actions">
+          <button type="button" id="edit-cancel-btn" class="secondary">Hủy</button>
+          <button type="submit" id="edit-save-btn">Lưu thay đổi</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+<script src="/admin.js"></script>
+</body>
+</html>

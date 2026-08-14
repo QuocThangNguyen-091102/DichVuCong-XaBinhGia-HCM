@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ead9c4"/>
+      <stop offset="1" stop-color="#f6eee3"/>
+    </linearGradient>
+    <linearGradient id="field" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#c9a36b"/>
+      <stop offset="1" stop-color="#8d633f"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <circle cx="1270" cy="180" r="110" fill="#fff4d7" opacity=".38"/>
+  <!-- Stylized civic building -->
+  <g fill="#70472e" opacity=".15" transform="translate(930 265)">
+    <rect x="0" y="250" width="510" height="175" rx="4"/>
+    <path d="M-35 250 L255 95 L545 250 Z"/>
+    <rect x="60" y="235" width="35" height="190"/>
+    <rect x="145" y="235" width="35" height="190"/>
+    <rect x="230" y="235" width="35" height="190"/>
+    <rect x="315" y="235" width="35" height="190"/>
+    <rect x="400" y="235" width="35" height="190"/>
+    <rect x="485" y="235" width="25" height="190"/>
+  </g>
+  <!-- Rice fields -->
+  <path d="M0 610 C260 540 440 585 650 650 C820 700 1010 670 1160 605 C1340 530 1490 560 1600 625 L1600 900 L0 900 Z" fill="url(#field)" opacity=".18"/>
+  <path d="M0 705 C260 640 450 700 650 760 C850 820 1050 760 1220 690 C1390 620 1500 655 1600 710" fill="none" stroke="#6f4b32" stroke-width="7" opacity=".12"/>
+  <path d="M0 780 C260 710 450 770 660 835 C860 895 1070 820 1240 760 C1400 705 1510 735 1600 785" fill="none" stroke="#6f4b32" stroke-width="6" opacity=".10"/>
+  <!-- Small flying birds -->
+  <g fill="none" stroke="#5f3b27" stroke-width="5" opacity=".12">
+    <path d="M180 230 q18 -16 36 0 q18 -16 36 0"/>
+    <path d="M310 180 q14 -12 28 0 q14 -12 28 0"/>
+    <path d="M430 260 q18 -15 36 0 q18 -15 36 0"/>
+  </g>
+</svg>
