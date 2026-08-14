@@ -25,7 +25,12 @@
   }
 
   hinhThucRadios.forEach((radio) => radio.addEventListener('change', toggleOtherField));
-
+  const cccdInput = document.getElementById('so_cccd');
+  if (cccdInput) {
+    cccdInput.addEventListener('input', () => {
+      ccdInput.value = cccdInput.value.replace(/[^0-9]/g, '').slice(0, 12);
+  });
+  }
   function showStatus(kind, message) {
     statusEl.textContent = message;
     statusEl.className = `status-message show ${kind}`;

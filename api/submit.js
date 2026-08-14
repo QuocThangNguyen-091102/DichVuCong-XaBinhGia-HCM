@@ -42,6 +42,10 @@ module.exports = async (req, res) => {
       res.status(400).json({ error: 'Khu vực (thôn/tổ) không hợp lệ.' });
       return;
     }
+    if (!/^[0-9]{12}$/.test(clean(body.so_cccd) || '')) {
+      res.status(400).json({ error: 'Số CCCD phải gồm đúng 12 chữ số.' });
+      return;
+}
 
     const record = {
       ho_ten: clean(body.ho_ten).toUpperCase(),
