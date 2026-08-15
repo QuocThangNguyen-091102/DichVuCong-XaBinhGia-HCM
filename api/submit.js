@@ -14,6 +14,7 @@ const REQUIRED_FIELDS = [
   'hinh_thuc_kham',
   'ngay_kham',
   'noi_kham',
+  'anh_dinh_kem_url',
 ];
 
 function clean(value) {

@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap');
 
 :root {
-  --bg: #f4f2ec;
-  --ink: #232323;
-  --muted: #6b6b6b;
-  --line: #d8d4c8;
-  --bronze: #8a6a3b;
+  --bg: #eef3fb;
+  --ink: #16324f;
+  --muted: #5b7089;
+  --line: #cddcee;
+  --bronze: #1058ad;
   --lacquer: #9b2c2c;
-  --patina: #5c6b4f;
+  --patina: #1058ad;
   --card: #ffffff;
 }
 
@@ -73,7 +73,7 @@ body {
 #login-form button {
   font: inherit;
   font-weight: 700;
-  background: var(--lacquer);
+  background: var(--bronze);
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -200,13 +200,13 @@ th {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--muted);
-  background: #fafaf6;
+  background: #f5f9fd;
   position: sticky;
   top: 0;
 }
 
 tbody tr:hover {
-  background: #fafaf6;
+  background: #f5f9fd;
 }
 
 #empty-state {
