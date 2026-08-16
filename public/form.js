@@ -40,6 +40,67 @@
     });
   }
 
+  function pad2(n) {
+    return n.toString().padStart(2, '0');
+  }
+
+  function isValidDate(d, m, y) {
+    if (isNaN(d) || isNaN(m) || isNaN(y)) return false;
+    if (y < 1900 || y > new Date().getFullYear() + 1) return false;
+    if (m < 1 || m > 12) return false;
+    const daysInMonth = new Date(y, m, 0).getDate();
+    if (d < 1 || d > daysInMonth) return false;
+    return true;
+  }
+
+  function setupDateField(inputId, errorId) {
+    const dateInput = document.getElementById(inputId);
+    const errorEl = document.getElementById(errorId);
+    if (!dateInput || !errorEl) return null;
+
+    function showFieldError(msg) {
+      errorEl.textContent = msg;
+      errorEl.style.display = 'inline';
+      dateInput.dataset.isoDate = '';
+    }
+
+    function formatDateInput() {
+      const raw = dateInput.value.trim();
+      if (!raw) {
+        errorEl.style.display = 'none';
+        dateInput.dataset.isoDate = '';
+        return;
+      }
+
+      // Chấp nhận mọi ký tự phân cách: / - \ khoảng trắng ...
+      const normalized = raw.replace(/[^0-9]+/g, '/');
+      const parts = normalized.split('/').filter(Boolean);
+
+      if (parts.length !== 3) {
+        showFieldError('Vui lòng nhập đúng định dạng ngày/tháng/năm (vd: 7/6/2002)');
+        return;
+      }
+
+      let [d, m, y] = parts.map(Number);
+      if (y < 100) y += y < 30 ? 2000 : 1900;
+
+      if (!isValidDate(d, m, y)) {
+        showFieldError('Ngày không hợp lệ, vui lòng kiểm tra lại');
+        return;
+      }
+
+      dateInput.value = `${pad2(d)}/${pad2(m)}/${y}`;
+      dateInput.dataset.isoDate = `${y}-${pad2(m)}-${pad2(d)}`;
+      errorEl.style.display = 'none';
+    }
+
+    dateInput.addEventListener('blur', formatDateInput);
+    return { input: dateInput, format: formatDateInput };
+  }
+
+  const ngaySinhField = setupDateField('ngay_sinh', 'ngay_sinh_error');
+  const ngayKhamField = setupDateField('ngay_kham', 'ngay_kham_error');
+
   function showStatus(kind, message) {
     statusEl.textContent = message;
     statusEl.className = `status-message show ${kind}`;
@@ -124,9 +185,26 @@
       return;
     }
 
+    // Ép format lại lần cuối (phòng khi người dùng chưa rời khỏi ô trước khi bấm gửi)
+    if (ngaySinhField) ngaySinhField.format();
+    if (ngayKhamField) ngayKhamField.format();
+
+    if (ngaySinhField && !ngaySinhField.input.dataset.isoDate) {
+      showStatus('error', 'Ngày tháng năm sinh không hợp lệ. Vui lòng kiểm tra lại.');
+      ngaySinhField.input.focus();
+      return;
+    }
+    if (ngayKhamField && !ngayKhamField.input.dataset.isoDate) {
+      showStatus('error', 'Ngày khám không hợp lệ. Vui lòng kiểm tra lại.');
+      ngayKhamField.input.focus();
+      return;
+    }
+
     const formData = new FormData(form);
     formData.delete('anh_dinh_kem');
     const payload = Object.fromEntries(formData.entries());
+    if (ngaySinhField) payload.ngay_sinh = ngaySinhField.input.dataset.isoDate;
+    if (ngayKhamField) payload.ngay_kham = ngayKhamField.input.dataset.isoDate;
 
     submitBtn.disabled = true;
     submitBtn.textContent = 'Đang gửi…';
@@ -150,6 +228,8 @@
       }
 
       form.reset();
+      if (ngaySinhField) ngaySinhField.input.dataset.isoDate = '';
+      if (ngayKhamField) ngayKhamField.input.dataset.isoDate = '';
       toggleOtherField();
       showStatus('success', 'Đã gửi thông tin thành công. Cảm ơn bạn!');
     } catch (err) {
