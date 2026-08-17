@@ -40,66 +40,34 @@
     });
   }
 
-  function pad2(n) {
-    return n.toString().padStart(2, '0');
-  }
-
-  function isValidDate(d, m, y) {
-    if (isNaN(d) || isNaN(m) || isNaN(y)) return false;
-    if (y < 1900 || y > new Date().getFullYear() + 1) return false;
-    if (m < 1 || m > 12) return false;
-    const daysInMonth = new Date(y, m, 0).getDate();
-    if (d < 1 || d > daysInMonth) return false;
-    return true;
-  }
-
   function setupDateField(inputId, errorId) {
     const dateInput = document.getElementById(inputId);
     const errorEl = document.getElementById(errorId);
     if (!dateInput || !errorEl) return null;
 
-    function showFieldError(msg) {
-      errorEl.textContent = msg;
-      errorEl.style.display = 'inline';
-      dateInput.dataset.isoDate = '';
-    }
-
-    function formatDateInput() {
-      const raw = dateInput.value.trim();
-      if (!raw) {
-        errorEl.style.display = 'none';
-        dateInput.dataset.isoDate = '';
-        return;
-      }
-
-      // Chấp nhận mọi ký tự phân cách: / - \ khoảng trắng ...
-      const normalized = raw.replace(/[^0-9]+/g, '/');
-      const parts = normalized.split('/').filter(Boolean);
-
-      if (parts.length !== 3) {
-        showFieldError('Vui lòng nhập đúng định dạng ngày/tháng/năm (vd: 7/6/2002)');
-        return;
-      }
-
-      let [d, m, y] = parts.map(Number);
-      if (y < 100) y += y < 30 ? 2000 : 1900;
-
-      if (!isValidDate(d, m, y)) {
-        showFieldError('Ngày không hợp lệ, vui lòng kiểm tra lại');
-        return;
-      }
-
-      dateInput.value = `${pad2(d)}/${pad2(m)}/${y}`;
-      dateInput.dataset.isoDate = `${y}-${pad2(m)}-${pad2(d)}`;
+    // input[type=date] đã trả về giá trị chuẩn yyyy-mm-dd, không cần tự phân tích nữa.
+    function format() {
+      dateInput.dataset.isoDate = dateInput.value || '';
       errorEl.style.display = 'none';
     }
 
-    dateInput.addEventListener('blur', formatDateInput);
-    return { input: dateInput, format: formatDateInput };
+    dateInput.addEventListener('change', format);
+    return { input: dateInput, format };
   }
 
   const ngaySinhField = setupDateField('ngay_sinh', 'ngay_sinh_error');
   const ngayKhamField = setupDateField('ngay_kham', 'ngay_kham_error');
+
+  // Giới hạn hợp lý: không cho chọn ngày sinh/ngày khám ở tương lai.
+  const todayIso = new Date().toISOString().slice(0, 10);
+  if (ngaySinhField) {
+    ngaySinhField.input.max = todayIso;
+    ngaySinhField.input.min = '1900-01-01';
+  }
+  if (ngayKhamField) {
+    ngayKhamField.input.max = todayIso;
+    ngayKhamField.input.min = '1900-01-01';
+  }
 
   function showStatus(kind, message) {
     statusEl.textContent = message;
@@ -185,7 +153,7 @@
       return;
     }
 
-    // Ép format lại lần cuối (phòng khi người dùng chưa rời khỏi ô trước khi bấm gửi)
+    // Đồng bộ lại lần cuối (phòng khi trình duyệt chưa bắn sự kiện change)
     if (ngaySinhField) ngaySinhField.format();
     if (ngayKhamField) ngayKhamField.format();
 
